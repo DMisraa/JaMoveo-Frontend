@@ -39,7 +39,7 @@ export default function AdminSignup() {
             const { newUser } = data;
             const encodedUser = encodeURIComponent(JSON.stringify(newUser));
             console.log('newUser:', newUser)
-            localStorage.setItem("newUser", newUser)
+            localStorage.setItem('user', JSON.stringify(newUser));
             console.log('encodedUser', encodedUser)
           router.push(`/adminMainPage?user=${encodedUser}`);
         } else {

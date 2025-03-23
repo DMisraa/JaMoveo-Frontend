@@ -8,6 +8,9 @@ function SearchResultsPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
+  const user = JSON.parse(localStorage.getItem('user'));
+  const { instrument } = user;
+  console.log('userInstrument:', instrument);
   const query = searchParams.get("query");
   const results = searchParams.get("results") || "[]";
 
@@ -24,10 +27,12 @@ function SearchResultsPage() {
 
   async function handleSelectSong(songUrl, index) {
     console.log("Selected song URL:", songUrl);
+    
+    // Attach the instrument to the URL query parameters
     const res = await fetch(
       `${
         process.env.NEXT_PUBLIC_BASE_URL
-      }/api/search/playSong?query=${encodeURIComponent(songUrl)}`
+      }/api/search/playSong?query=${encodeURIComponent(songUrl)}&instrument=${encodeURIComponent(instrument)}`
     );
     const data = await res.json();
 
@@ -37,10 +42,12 @@ function SearchResultsPage() {
     console.log("Fetched song data:", data);
 
     socket.emit("songPicked", { roomId: "BandSession", song: data });
+    socket.emit("instrumentPicked", { roomId: "BandSession", instrument });
 
     sessionStorage.setItem("songDetails", JSON.stringify(data));
 
-    router.push("/live");
+    // Include the instrument as a query parameter in the URL when navigating
+    router.push(`/live?instrument=${encodeURIComponent(instrument)}`);
   }
 
   return (

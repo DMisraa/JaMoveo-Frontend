@@ -37,7 +37,7 @@ export default function AdminSignup() {
         if (response.ok) {
           console.log('respone OK')
           const { newUser } = data;
-            localStorage.setItem('userId', newUser.userId);
+          localStorage.setItem('user', JSON.stringify(newUser));
             console.log('respone OK2', newUser.userId)
           router.push('/playerMainPage');
         } else {
