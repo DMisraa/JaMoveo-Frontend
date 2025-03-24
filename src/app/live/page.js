@@ -7,7 +7,6 @@ export default function LivePage() {
   const [isAutoScrollActive, setIsAutoScrollActive] = useState(false);
 
   useEffect(() => {
-    // Retrieve the song details from sessionStorage
     const songData = sessionStorage.getItem("songDetails");
     if (songData) {
       setSongDetails(JSON.parse(songData));
@@ -16,8 +15,6 @@ export default function LivePage() {
 
   useEffect(() => {
     if (isAutoScrollActive) {
-
-      
       const interval = setInterval(() => {
         const lyricsSection = document.getElementById("lyrics-section");
         if (lyricsSection) {
@@ -32,18 +29,17 @@ export default function LivePage() {
   if (!songDetails) return <div className="text-center p-4">Loading...</div>;
 
   // Function to map chords to lyrics
-  const mapChordsToLyrics = () => {
+  function mapChordsToLyrics() {
     let result = [];
     let totalChords = songDetails.chords.length;
     let totalLyrics = songDetails.lyrics.length;
     let chordIndex = 0;
   
-    // Define the max chords per line dynamically
     let maxChordsPerLine = totalChords > totalLyrics ? Math.ceil(totalChords / totalLyrics) : 1;
-    maxChordsPerLine = Math.min(maxChordsPerLine, 2); // Ensure we don’t assign too many chords per line
+    maxChordsPerLine = Math.min(maxChordsPerLine, 2); 
   
     songDetails.lyrics.forEach((line) => {
-      // If it's a section header (Intro, Chorus, etc.), keep it bold and without chords
+      
       if (["Intro", "intro", "verse", "Chorus:", "Repeat", "Bridge:", "Ending:", "Solo"].some((section) => line.includes(section))) {
         result.push({ lyric: line, chords: [] });
         return;
@@ -51,7 +47,6 @@ export default function LivePage() {
   
       let assignedChords = [];
   
-      // Only attach chords if there are enough left
       if (chordIndex < totalChords) {
         let availableChords = totalChords - chordIndex;
         let chordsForThisLine = Math.min(availableChords, maxChordsPerLine);
@@ -85,6 +80,8 @@ export default function LivePage() {
       <div id="lyrics-section" className="mb-6">
         <h2 className="text-lg font-semibold mb-2 text-center">Lyrics</h2>
         <div className="space-y-3">
+
+        // Some words are not part of the song lyrics - spacing, bold lining, no chords attached
           {lyricsWithChords.map((line, index) => {
             const isIntroOrVerse = ["Intro", "verse", "Chorus", "Bridge", "Ending"].some((section) => line.lyric.includes(section));
             const isBoldLine = line.lyric.includes("Intro") || line.lyric.includes("verse") || 
@@ -108,7 +105,7 @@ export default function LivePage() {
         </div>
       </div>
 
-      {/* Floating Sticky Button */}
+      {/* Sticky Button */}
       <button
         onClick={() => setIsAutoScrollActive((prev) => !prev)}
         className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none fixed bottom-5 right-5 shadow-lg"

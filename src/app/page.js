@@ -1,15 +1,15 @@
-'use client'
+"use client";
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 function Home() {
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
   async function handleLogin(event) {
-    setIsLoading(true)
+    setIsLoading(true);
     event.preventDefault();
 
     const username = event.target.username.value;
@@ -23,18 +23,17 @@ function Home() {
       });
 
       const data = await res.json();
-      console.log('data:', data)
 
       if (!res.ok) {
-        setIsLoading(false)
+        setIsLoading(false);
         setError(data.error || "Login failed");
         return;
       }
-      
-      localStorage.setItem("token", data.token); // Store JWT
-      localStorage.setItem('user', JSON.stringify(data))
-      setIsLoading(false)
-      router.push(data.admin ? "/adminMainPage" : "/playerMainPage"); // Redirect
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data));
+      setIsLoading(false);
+      router.push(data.admin ? "/adminMainPage" : "/playerMainPage"); // Redirect Player/Admin
     } catch (err) {
       setError("An error occurred. Please try again.");
     }
@@ -50,24 +49,40 @@ function Home() {
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
 
         <form onSubmit={handleLogin} className="space-y-4">
+          {/* Username Input */}
           <div>
             <label className="block text-gray-300 text-sm mb-2">Username</label>
-            <input name="username" type="text" required className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:ring-2 focus:ring-blue-500" />
+            <input
+              name="username"
+              type="text"
+              required
+              className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:ring-2 focus:ring-blue-500"
+            />
           </div>
-
+          {/* Password Input */}
           <div>
             <label className="block text-gray-300 text-sm mb-2">Password</label>
-            <input name="password" type="password" required className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:ring-2 focus:ring-blue-500" />
+            <input
+              name="password"
+              type="password"
+              required
+              className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:ring-2 focus:ring-blue-500"
+            />
           </div>
 
-          <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-500 transition">
-           {isLoading ? 'Logging In..' : 'Login' } 
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-500 transition"
+          >
+            {isLoading ? "Logging In.." : "Login"}
           </button>
         </form>
 
         <p className="text-gray-400 text-center text-sm mt-4">
           Don&apos;t have an account?{" "}
-          <a href="/signup" className="text-blue-400 hover:underline">Sign up</a>
+          <a href="/signup" className="text-blue-400 hover:underline">
+            Sign up
+          </a>
         </p>
       </div>
     </div>

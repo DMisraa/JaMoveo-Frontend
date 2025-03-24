@@ -12,11 +12,11 @@ export default function UserMainPage() {
   const router = useRouter();
 
   useEffect(() => {
-    console.log("UserMainPage mounted. Joining room:", roomId);
+    // Joining room
     socket.emit("joinRoom", { roomId: "BandSession" });
 
     const handleSongSelected = (data) => {
-      console.log("Received songSelected event:", data);
+  
       if (data.songSelected) {
         setSongData(data);
       }
@@ -24,7 +24,6 @@ export default function UserMainPage() {
 
     socket.on("songSelected", handleSongSelected);
 
-    // Remove only the event listener on unmount
     return () => {
       socket.off("songSelected", handleSongSelected);
     };
@@ -32,7 +31,6 @@ export default function UserMainPage() {
 
   useEffect(() => {
     if (songData) {
-      // Save song details in session storage for the /live page to use
       sessionStorage.setItem("songDetails", JSON.stringify(songData.song));
       router.push("/live");
     }

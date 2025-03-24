@@ -4,13 +4,10 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { roomId } from "../playerMainPage/page";
-import { socket } from "../socket";
 
 export default function AdminMainPage() {
   const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [userData, setUserData] = useState(null);
 
   const router = useRouter();
 
@@ -19,8 +16,6 @@ export default function AdminMainPage() {
     setIsLoading(true);
     if (query.trim() === "") return; // Do nothing if query is empty
 
-    console.log("query:", query);
-
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/search?query=${encodeURIComponent(query)}`);
     const data = await res.json();
 
@@ -28,12 +23,7 @@ export default function AdminMainPage() {
     if (data.results && data.results.length > 0) {
       const searchParams = new URLSearchParams({
         query: query,
-        results: JSON.stringify(data.results), // Convert array to a string
-        
-      });
-      socket.emit("searchResults", {
-        results: JSON.stringify(data.results), query: query,  // Send your results here
-        roomId: roomId,      // Send the roomId
+        results: JSON.stringify(data.results), 
       });
 
       setIsLoading(false);
@@ -44,11 +34,10 @@ export default function AdminMainPage() {
     }
   }
 
-  // Logout function to clear local storage and reset user data
-  const handleLogout = () => {
-    localStorage.clear(); // Clears the entire localStorage
-    setUserData(null); // Resets userData state to null
-    router.push("/"); // Redirect to login page (or home, as per your requirements)
+  // Logout 
+  function handleLogout() {
+    localStorage.clear(); 
+    router.push("/"); 
   };
 
   return (
@@ -65,6 +54,7 @@ export default function AdminMainPage() {
               onChange={(e) => setQuery(e.target.value)}
               className="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500"
             />
+             {/* Submit Button */}
             <Button
               type="submit"
               className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg"
