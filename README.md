@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1> JaMoveo - Rehearsal Room Web App </h1>
 
-## Getting Started
+<h2> Features </h2>
 
-First, run the development server:
+<h3> Authentication </h3>
+<ul>
+<li> <strong> Signup Page (Admin): </strong> Admins register through a dedicated URL to gain access to session management features. </li> 
+  
+<li> <strong> Signup Page: </strong> Users register with a username, password, and instrument. </li>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<li> <strong> Login Page: </strong> Users authenticate using their credentials. </li>
+</ul>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<h3> Main Page </h3>
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+<ul> 
+  <li> <strong> Main Page (Admin): </strong> The admin's main page allows them to search for songs in English (Hebrew not available yet). Once a song is selected from the results, all users are moved to the live page. </li> 
+  <li> <strong> Main Page (Player): </strong> Players see a waiting screen with the message "Waiting for next song" until the admin selects a song, at which point they are redirected to the live page. </li>
+</ul>
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+<h3> Live Page </h3>
+<ul>
+<li> Displays the song title and author. </li>
 
-## Learn More
+<li> Singers see lyrics + chords (not managed to fix this yet). </li>
 
-To learn more about Next.js, take a look at the following resources:
+<li> Instrumentalists see both lyrics and chords. </li>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<li> Includes a toggle for auto-scrolling. </li>
+</ul>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+<h3> Technical Details </h3>
 
-## Deploy on Vercel
+  <li> <strong> Stack: </strong> Node.js, Next.JS </li>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  <li> <strong> Database: </strong> Stores users and roles via MongoDB. </li>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+  <li> <strong> Deployment: </strong> Railway & Vercel </li>
+
+  <li> <strong> PageUpdates: </strong> Real-time updates via WebSockets. </li>
+
+<h3> Deployment & Access </h3>
+
+<ul>
+<li> Implement web crawling to fetch live song data from external sources (Tab4U). </li>
+
+<li> Improve UI with animations and additional customization features.
+</ul>
+
+
+
+
