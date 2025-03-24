@@ -23,6 +23,7 @@ function Home() {
       });
 
       const data = await res.json();
+      console.log('data:', data)
 
       if (!res.ok) {
         setIsLoading(false)
@@ -31,6 +32,7 @@ function Home() {
       }
       
       localStorage.setItem("token", data.token); // Store JWT
+      localStorage.setItem('user', JSON.stringify(data))
       setIsLoading(false)
       router.push(data.admin ? "/adminMainPage" : "/playerMainPage"); // Redirect
     } catch (err) {
