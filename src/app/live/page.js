@@ -81,7 +81,7 @@ export default function LivePage() {
         <h2 className="text-lg font-semibold mb-2 text-center">Lyrics</h2>
         <div className="space-y-3">
 
-        // Some words are not part of the song lyrics - spacing, bold lining, no chords attached
+       
           {lyricsWithChords.map((line, index) => {
             const isIntroOrVerse = ["Intro", "verse", "Chorus", "Bridge", "Ending"].some((section) => line.lyric.includes(section));
             const isBoldLine = line.lyric.includes("Intro") || line.lyric.includes("verse") || 
