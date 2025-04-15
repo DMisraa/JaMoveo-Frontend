@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
       >
         <div className="w-full p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 bg-gray-800 text-white">
           <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold">
-            Welcome to JaMoveo 🎶
+            Welcome to JamFlow 🎶
           </h1>
           <p className="text-sm md:text-base lg:text-lg">
             Your real-time band rehearsal assistant!
